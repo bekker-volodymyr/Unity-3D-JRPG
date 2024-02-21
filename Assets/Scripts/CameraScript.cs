@@ -14,13 +14,11 @@ public class CameraScript : MonoBehaviour
     {
         initialAngles = cameraAngles = transform.eulerAngles;
         initialOffset = cameraOffset = transform.position - cameraAnchor.transform.position;
-        
     }
 
     void Update()
     {
         cameraAngles.y += Input.GetAxis("Mouse X");
-        Debug.Log(cameraAngles.x);
         cameraAngles.x -= Input.GetAxis("Mouse Y");
 
         if (cameraOffset == Vector3.zero)

@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class CharacterScript : MonoBehaviour
 {
-    [SerializeField] private float speed = 300f;
+    [SerializeField] private float speed = 3f;
+
+    private float playerVelocityY;
+    private float gravityValue = -9.80f;
+    private float jumpHeight = 0.1f;
+    private bool groundedPlayer;
+
     private CharacterController _characterController;
+
     void Start()
     {
         _characterController = GetComponent<CharacterController>();
@@ -13,15 +20,47 @@ public class CharacterScript : MonoBehaviour
 
     void Update()
     {
-        float dx = Input.GetAxis("Horizontal");
-        float dy = Input.GetAxis("Vertical");
-        
-        if(Mathf.Abs(dx) > 0 && Mathf.Abs(dy) > 0)
+        if (groundedPlayer && playerVelocityY < 0)
         {
-            dx *= 0.707f; // /= Mathf.Sqrt(2f);
-            dy *= 0.707f; // /= Mathf.Sqrt(2f);
+            playerVelocityY = 0f;
         }
 
-        _characterController.SimpleMove(speed * Time.deltaTime * (dx * Camera.main.transform.right + dy * Camera.main.transform.forward));          // new Vector3(dx, 0, dy));
+        float dx = Input.GetAxis("Horizontal");
+        float dy = Input.GetAxis("Vertical");
+
+        if (Mathf.Abs(dx) > 0 && Mathf.Abs(dy) > 0)
+        {
+            dx *= 0.707f;
+            dy *= 0.707f;
+        }
+
+        if (Input.GetButton("Jump") && groundedPlayer)
+        {
+            playerVelocityY += Mathf.Sqrt(jumpHeight * -2.0f * gravityValue);
+        }
+
+        Vector3 horizontalForward = Camera.main.transform.forward;
+        horizontalForward.y = 0f;
+        horizontalForward = horizontalForward.normalized;
+
+        playerVelocityY += gravityValue * Time.deltaTime;
+        _characterController.Move(
+            (speed * (dx * Camera.main.transform.right + dy * horizontalForward) + playerVelocityY * Vector3.up) * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Floor"))
+        {
+            groundedPlayer = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Floor"))
+        {
+            groundedPlayer = false;
+        }
     }
 }
