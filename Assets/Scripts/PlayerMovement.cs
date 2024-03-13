@@ -17,7 +17,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpMultiplier;
     [SerializeField] private KeyCode jumpKey;
 
+    private Vector3 playerPosition;
+
     private bool isJumping;
+
+    private Enums.State state;
 
     private void Awake() // Це майже те ж саме, що і Старт, але запускається при створенні об'єкту
     {
@@ -25,9 +29,18 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    private void Start()
+    {
+        state = Enums.State.Idle;
+    }
+
     private void Update()
     {
-        PlayerMovements();
+        if (state == Enums.State.Idle)
+        {
+            PlayerMovements();
+        }
+
         if (this.transform.position.y < 0f)
         {
             this.transform.position = new Vector3(0, 1, 0);
@@ -81,5 +94,20 @@ public class PlayerMovement : MonoBehaviour
 
         charController.slopeLimit = 45.0f;
         isJumping = false;
+    }
+
+    public void ChangeState(Enums.State newState, Vector3 position)
+    {
+        if (newState == Enums.State.Fight && state != Enums.State.Fight)
+        {
+            state = newState;
+            animator.SetInteger("State", 0);
+            MoveToPoint(position);
+        }
+    }
+
+    private void MoveToPoint(Vector3 point)
+    {
+        charController.SimpleMove(point);
     }
 }

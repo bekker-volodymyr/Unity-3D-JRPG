@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enums 
 {
-    enum State
+    public enum State
     {
         Idle, Fight
     }
