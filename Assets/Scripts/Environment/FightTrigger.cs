@@ -4,17 +4,9 @@ using UnityEngine;
 
 public class FightTrigger : MonoBehaviour
 {
-    private Collider _collider;
     [SerializeField] private EnemyController[] enemies;
 
     [SerializeField] private Vector3 playerPosition;
-
-    private PlayerMovement player;
-    void Start()
-    {
-        _collider = GetComponent<Collider>();
-        player = GameObject.FindWithTag("Player").GetComponent<PlayerMovement>();
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -26,7 +18,7 @@ public class FightTrigger : MonoBehaviour
 
     private void InitiateFight()
     {
-        player.ChangeState(Enums.State.Fight, playerPosition);
+        GameManager.Instance.InitiateFight(new Vector3(0f, 0f, 30f));
 
         for (int i = 0; i < enemies.Length; i++)
         {

@@ -4,58 +4,118 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] private string mouseXInputName, mouseYInputName;
-    [SerializeField] private float mouseSensitivity;
+    [SerializeField] private GameObject cameraAnchor;
+    private Vector3 cameraAngles;
+    private Vector3 cameraOffset;
+    private Vector3 initialAngles;
+    private Vector3 initialOffset;
 
-    [SerializeField] private Transform playerBody;
+    private Enums.State currentState;
 
-    private float xAxisClamp;
+    Vector3 fightPosition = new Vector3(0f, 3.3f, 9.5f);
+    Vector3 fightRotation = new Vector3(15f, -50f, 0f);
+    Vector3 fightCenter = new Vector3(0f, 0f, 20f);
 
-    private void Awake()
+    #region Lerp Variables
+
+    // Init on lerp start
+    private float lerpStartTime;
+    private Vector3 lerpStartPos;
+    private float lerpLength;
+
+    private float lerpSpeed = 1.0f;
+
+    #endregion
+
+    void Start()
     {
-        LockCursor();
-        xAxisClamp = 0.0f;
+        initialAngles = cameraAngles = transform.eulerAngles;
+        initialOffset = cameraOffset = transform.position - cameraAnchor.transform.position;
+
+        currentState = Enums.State.Idle;
     }
 
-
-    private void LockCursor()
+    void Update()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-    }
-
-    private void Update()
-    {
-        CameraRotation();
-    }
-
-    private void CameraRotation()
-    {
-        float mouseX = Input.GetAxis(mouseXInputName) * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis(mouseYInputName) * mouseSensitivity * Time.deltaTime;
-
-        xAxisClamp += mouseY;
-
-        if (xAxisClamp > 15.0f)
+        switch (currentState)
         {
-            xAxisClamp = 15.0f;
-            mouseY = 0.0f;
-            ClampXAxisRotationToValue(345.0f);
+            case Enums.State.Idle:
+                IdleUpdate(); 
+                break;
+            case Enums.State.Fight:
+                //FightUpdate(); 
+                break;
+            default: break;
         }
-        else if (xAxisClamp < -20.0f)
-        {
-            xAxisClamp = -20.0f;
-            mouseY = 0.0f;
-            ClampXAxisRotationToValue(20.0f);
-        }
-
-        transform.Rotate(Vector3.left * mouseY);
-        playerBody.Rotate(Vector3.up * mouseX);
     }
 
-    private void ClampXAxisRotationToValue(float value)
+    private void LateUpdate()
     {
-        Vector3 eulerRotation = transform.eulerAngles;
-        eulerRotation.x = value;
-        transform.eulerAngles = eulerRotation;
+        switch (currentState)
+        {
+            case Enums.State.Idle:
+                IdleLateUpdate(); break;
+            case Enums.State.Fight:
+                FightLateUpdate(); break;
+            default: break;
+        }
+    }
+
+    public void ChangeState(Enums.State newState)
+    {
+        currentState = newState;
+
+        if (newState == Enums.State.Fight)
+        {
+            Debug.Log("Fight state init for camera");
+
+            lerpStartTime = Time.time;
+            lerpStartPos = transform.position;
+            lerpLength = Vector3.Distance(lerpStartPos, fightPosition);
+
+            
+        }
+    }
+
+    private void IdleUpdate()
+    {
+        cameraAngles.y += Input.GetAxis("Mouse X");
+        cameraAngles.x -= Input.GetAxis("Mouse Y");
+
+
+        if (cameraAngles.x < 0)
+        {
+            cameraAngles.x = 0;
+        }
+        else if (cameraAngles.x > 30)
+        {
+            cameraAngles.x = 30;
+        }
+    }
+
+    private void IdleLateUpdate()
+    {
+        transform.position = cameraAnchor.transform.position + Quaternion.Euler(0, cameraAngles.y - initialAngles.y, 0) * cameraOffset;
+        transform.eulerAngles = cameraAngles;
+    }
+
+    private void FightUpdate()
+    {
+        float distCovered = (Time.time - lerpStartTime) * lerpSpeed;
+
+        float fractionOfJourney = distCovered / lerpLength;
+
+        transform.position = Vector3.Lerp(lerpStartPos, fightPosition, fractionOfJourney);
+    }
+
+    private void FightLateUpdate()
+    {
+        float distCovered = (Time.time - lerpStartTime) * lerpSpeed;
+
+        float fractionOfJourney = distCovered / lerpLength;
+
+        transform.Rotate(Vector3.up, 5f);
+        transform.position = Vector3.Lerp(lerpStartPos, fightPosition, fractionOfJourney);
+        
     }
 }
