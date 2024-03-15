@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     public CinemachineFreeLook primaryCamera;
     public CinemachineVirtualCamera fightingCamera;
 
+    public Player player;
+    public Transform playerFightPosition;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -27,5 +30,7 @@ public class GameManager : MonoBehaviour
     {
         primaryCamera.gameObject.SetActive(false);
         fightingCamera.gameObject.SetActive(true);
+
+        player.ChangeState(Enums.State.Fight);
     }
 }

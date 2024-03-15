@@ -18,6 +18,17 @@ public class Player : MonoBehaviour
 
     #endregion
 
+    #region Lerp Variables
+
+    // Init on lerp start
+    private float lerpStartTime;
+    private Vector3 lerpStartPos;
+    private float lerpLength;
+
+    private float lerpSpeed = 5.0f;
+
+    #endregion
+
     private void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -29,21 +40,34 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if(currentState == Enums.State.Idle)
+        switch (currentState)
         {
-            IdleStateUpdate();
+            case Enums.State.Idle:
+                IdleUpdate();
+                break;
+            case Enums.State.Fight:
+                FightUpdate(); 
+                break;
+            default: break;
         }
     }
 
     public void ChangeState(Enums.State newState)
     {
-        if(currentState != newState)
+        switch (newState)
         {
-            currentState = newState;
+            case Enums.State.Idle: break;
+            case Enums.State.Fight:
+                lerpStartTime = Time.time;
+                lerpStartPos = transform.position;
+                lerpLength = Vector3.Distance(lerpStartPos, GameManager.Instance.playerFightPosition.position);
+                break;
+            default: break;
         }
+        currentState = newState;
     }
 
-    private void IdleStateUpdate()
+    private void IdleUpdate()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
@@ -60,6 +84,22 @@ public class Player : MonoBehaviour
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDir.normalized * speed * Time.deltaTime);
+        }
+    }
+
+    private void FightUpdate()
+    {
+        float distCovered = (Time.time - lerpStartTime) * lerpSpeed;
+
+        float fractionOfJourney = distCovered / lerpLength;
+
+        if(fractionOfJourney >= 1f)
+        {
+            animator.SetInteger("State", 0);
+        }
+        else
+        {
+            transform.position = Vector3.Lerp(lerpStartPos, GameManager.Instance.playerFightPosition.position, fractionOfJourney);
         }
     }
 }

@@ -254,7 +254,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 266604543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.039413314, y: 0.0000000021491264, z: -8.4770066e-11, w: 0.999223}
+  m_LocalRotation: {x: 0.039413314, y: -0.0000000021491262, z: 8.477005e-11, w: 0.999223}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -942,6 +942,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 796652407307068396, guid: 8ee08d04ad5df46fbb2e97260b63420b, type: 3}
   m_PrefabInstance: {fileID: 1680632841}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &494176611
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 494176612}
+  m_Layer: 0
+  m_Name: PlayerFightPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &494176612
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494176611}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 17.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &512601404
 GameObject:
   m_ObjectHideFlags: 0
@@ -2752,7 +2783,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.039413314, y: 0.000000007748785, z: -3.0564276e-10, w: 0.999223}
+  m_LocalRotation: {x: 0.039413314, y: -0.000000007748785, z: 3.0564276e-10, w: 0.999223}
   m_LocalPosition: {x: 0.48, y: 1.5307623, z: 5.7601013}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3350,7 +3381,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1450556109}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.057582147, y: 0.000000002147229, z: -1.2384754e-10, w: 0.9983408}
+  m_LocalRotation: {x: 0.057582147, y: -0.000000002147229, z: 1.2384754e-10, w: 0.9983408}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4532,6 +4563,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   primaryCamera: {fileID: 386213784}
   fightingCamera: {fileID: 1197249128}
+  player: {fileID: 654652370}
+  playerFightPosition: {fileID: 494176612}
 --- !u!4 &1985950448
 Transform:
   m_ObjectHideFlags: 0
@@ -4561,3 +4594,4 @@ SceneRoots:
   - {fileID: 303695285}
   - {fileID: 386213785}
   - {fileID: 1197249129}
+  - {fileID: 494176612}

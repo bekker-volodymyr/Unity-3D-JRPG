@@ -14,9 +14,22 @@ public class EnemyController : MonoBehaviour
     private Vector3 fightPosition;
     private Quaternion fightRotation;
 
+    #region Slerp Variables
+    
+    Vector3 directionToPlayer;
+    // Init on lerp start
+    private float slerpStartTime;
+    Quaternion startRotation;
+    
+    Quaternion targetRotation;
+
+    private float slerpLength;
+
     private float rotationSpeed = 3.0f;
 
-    private Enums.State state;
+    #endregion
+
+    private Enums.State currentState;
 
     void Start()
     {
@@ -28,7 +41,7 @@ public class EnemyController : MonoBehaviour
         fightPosition = transform.position;
         fightRotation = transform.rotation;
 
-        state = Enums.State.Idle;
+        currentState = Enums.State.Idle;
 
         MoveToRandomPoint();
     }
@@ -57,26 +70,80 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        if (!agent.pathPending && agent.remainingDistance < 0.1f && state == Enums.State.Idle)
+        switch(currentState)
         {
-            MoveToRandomPoint();
+            case Enums.State.Idle: IdleUpdate(); break;
+            case Enums.State.Fight: FightUpdate(); break;
+        }
+    }
+
+    private void LateUpdate()
+    {
+        switch (currentState)
+        {
+            case Enums.State.Idle: IdleLateUpdate(); break;
+            case Enums.State.Fight: FightLateUpdate(); break;
         }
     }
 
     public void ChangeState(Enums.State newState)
     {
-        if(newState == Enums.State.Fight && state != Enums.State.Fight)
+        switch (newState)
         {
-            state = newState;
-            MoveToFightPosition();
-            RotateTowards(player.transform.position);
+            case Enums.State.Idle: break;
+            case Enums.State.Fight:
+
+                MoveToFightPosition();
+
+
+                slerpStartTime = Time.time;
+                startRotation = transform.rotation;
+
+                directionToPlayer = GameManager.Instance.playerFightPosition.position - transform.position;
+                targetRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
+
+                slerpLength = Quaternion.Angle(startRotation, targetRotation);
+
+                break;
+            default: break;
+        }
+        currentState = newState;
+    }
+
+    public void RotateTowardsPlayer()
+    {
+        float distCovered = (Time.time - slerpStartTime) * rotationSpeed;
+
+        float fractionOfJourney = distCovered / slerpLength;
+
+        transform.rotation = Quaternion.Slerp(startRotation, targetRotation, fractionOfJourney);
+    }
+
+    private void IdleUpdate()
+    {
+        if (!agent.pathPending && agent.remainingDistance < 0.1f)
+        {
+            MoveToRandomPoint();
         }
     }
 
-    public void RotateTowards(Vector3 position)
+    private void FightUpdate()
     {
-        Vector3 directionToPlayer = position - transform.position;
-        var targetRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        if (!agent.pathPending && agent.remainingDistance < 0.1f)
+        {
+            // RotateTowardsPlayer();
+            transform.LookAt(GameManager.Instance.playerFightPosition);
+        }
+    }
+
+
+    private void FightLateUpdate()
+    {
+        //RotateTowards();
+    }
+
+    private void IdleLateUpdate()
+    {
+        return;
     }
 }
