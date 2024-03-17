@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     public Player player;
     public Transform playerFightPosition;
 
+    public bool isPaused;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
