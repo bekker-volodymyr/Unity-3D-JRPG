@@ -2,6 +2,21 @@
 
 <h2>15.03.24</h2>
 <ul>
+  <li> додано меню паузи, кнопка відкриття паузи та поле для квесту </li>
+  <li> додані пакети ассетів: 
+    <a href="https://assetstore.unity.com/packages/2d/fonts/free-pixel-art-font-pack-blackbold-and-greybold-181381"> Free Pixel Art Font Pack: 'BlackBold' and 'GreyBold' </a>, 
+    <a href="https://assetstore.unity.com/packages/2d/gui/icons/simple-icons-81515"> Simple Icons </a>, 
+    <a href="https://assetstore.unity.com/packages/2d/gui/icons/free-ui-pack-170878"> Free Ui Pack </a>, 
+    <a href="https://assetstore.unity.com/packages/2d/fonts/bubble-font-free-version-24987"> Bubble Font (Free Version) </a>
+  </li>
+</ul>
+
+![image](https://github.com/YurkevichVA/UnityFinal/assets/67063105/94fd854f-3d32-4ec0-97c4-7d3cfcabb491)
+
+<hr>
+
+<h2>15.03.24</h2>
+<ul>
   <li> реалізоване позиціонування гравця на початку бою </li>
   <li> реалізоване повертання ворогів на початку бою </li>
 </ul>
