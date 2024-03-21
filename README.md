@@ -1,5 +1,16 @@
 <h1> DEVLOGS | CHANGELOGS </h1>
 
+<h2>21.03.24</h2>
+<ul>
+  <li> реалізовано компас з маркером квесту </li>
+  <li> додані пакети ассетів: 
+    <a href="https://assetstore.unity.com/packages/2d/gui/icons/modern-rpg-free-icons-pack-264706"> Modern RPG - Free icons pack </a>
+  </li>
+</ul>
+
+https://github.com/YurkevichVA/UnityFinal/assets/67063105/8b7bf991-300c-4408-8205-df280bced8cd
+
+<hr>
 <h2>15.03.24</h2>
 <ul>
   <li> додано меню паузи, кнопка відкриття паузи та поле для квесту </li>
