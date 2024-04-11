@@ -1,5 +1,14 @@
 <h1> DEVLOGS | CHANGELOGS </h1>
 
+
+<h2>21.03.24</h2>
+<ul>
+  <li> релазована підсвідка ворогів при наведенні миші </li>
+</ul>
+
+https://github.com/YurkevichVA/UnityFinal/assets/67063105/16391af6-89d4-4265-af21-c41b7412b4d7
+
+<hr>
 <h2>21.03.24</h2>
 <ul>
   <li> реалізовано компас з маркером квесту </li>
