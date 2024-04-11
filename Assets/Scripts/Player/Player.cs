@@ -36,6 +36,8 @@ public class Player : MonoBehaviour
         cameraTransform = Camera.main.transform;
 
         currentState = Enums.State.Idle;
+
+        Cursor.visible = false;
     }
 
     private void Update()

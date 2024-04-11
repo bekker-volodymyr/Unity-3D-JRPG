@@ -34,5 +34,7 @@ public class GameManager : MonoBehaviour
         fightingCamera.gameObject.SetActive(true);
 
         player.ChangeState(Enums.State.Fight);
+
+        Cursor.visible = true;
     }
 }
