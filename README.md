@@ -1,5 +1,15 @@
 <h1> DEVLOGS | CHANGELOGS </h1>
 
+<h2>27.04.24</h2>
+<ul>
+  <li> видалені деякі зайві файли ассетів </li>
+  <li> перероблена та розширена машина станів гравця </li>
+  <li> реалізована атака гравця </li>
+</ul>
+
+https://github.com/YurkevichVA/UnityFinal/assets/67063105/cb952ddf-cad1-4ccc-ae44-2c89e99208fe
+
+<hr>
 
 <h2>11.04.24</h2>
 <ul>
@@ -9,6 +19,7 @@
 https://github.com/YurkevichVA/UnityFinal/assets/67063105/16391af6-89d4-4265-af21-c41b7412b4d7
 
 <hr>
+
 <h2>21.03.24</h2>
 <ul>
   <li> реалізовано компас з маркером квесту </li>
