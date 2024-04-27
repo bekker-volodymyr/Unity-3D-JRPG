@@ -12,6 +12,7 @@ public class FightTrigger : MonoBehaviour
     {
         GameManager.Instance.EnemiesTurn += OnEnemiesTurn;
         GameManager.Instance.PassTurn += OnPassTurn;
+        GameManager.Instance.Win += OnWin;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -34,6 +35,7 @@ public class FightTrigger : MonoBehaviour
         if(enemies.Count == 0)
         {
             Debug.Log("WIN");
+            GameManager.Instance.OnWin();
             return;
         }
 
@@ -54,6 +56,7 @@ public class FightTrigger : MonoBehaviour
         if (enemies.Count == 0)
         {
             Debug.Log("WIN");
+            GameManager.Instance.OnWin();
             return;
         }
 
@@ -61,5 +64,13 @@ public class FightTrigger : MonoBehaviour
         {
             enemy.EnemyStateMachine.ChangeState(enemy.EnemyWaitToAttackState);
         }
+    }
+
+    private void OnWin()
+    {
+        GameManager.Instance.EnemiesTurn -= OnEnemiesTurn;
+        GameManager.Instance.PassTurn -= OnPassTurn;
+        GameManager.Instance.Win -= OnWin;
+        Destroy(gameObject);
     }
 }

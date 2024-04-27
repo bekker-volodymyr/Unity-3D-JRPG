@@ -23,6 +23,8 @@ public class Compass : MonoBehaviour
     {
         compassUnit = compassImage.rectTransform.rect.width / 360f;
         AddMarker(ghosts);
+
+        GameManager.Instance.Win += RemoveMarker;
     }
 
     private void Update()
@@ -49,6 +51,11 @@ public class Compass : MonoBehaviour
         markers.Add(marker);
     }
 
+    public void RemoveMarker()
+    {
+        Destroy(markers[markers.Count - 1]);
+    }
+
     private Vector2 GetPosOnCompass(Marker marker)
     {
         Vector2 playerPos = new Vector2(player.transform.position.x, player.transform.position.z);
@@ -58,4 +65,6 @@ public class Compass : MonoBehaviour
 
         return new Vector2(compassUnit * angle, 0f);
     }
+
+
 }

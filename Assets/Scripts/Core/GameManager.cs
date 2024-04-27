@@ -23,8 +23,11 @@ public class GameManager : MonoBehaviour
     public Action EnemyAttack;
     public Action EnemiesTurn;
     public Action PassTurn;
+    public Action Win;
 
     public bool isPlayerTurn = true;
+
+    [SerializeField] private GameObject WinPanel;
 
     private void Awake()
     {
@@ -56,4 +59,15 @@ public class GameManager : MonoBehaviour
         player.StateMachine.ChangeState(player.MoveToTargetState);
     }
 
+    public void OnWin()
+    {
+        fightingCamera.gameObject.SetActive(false);
+        primaryCamera.gameObject.SetActive(true);
+
+        player.StateMachine.ChangeState(player.IdleState);
+
+        WinPanel.SetActive(true);
+
+        Win?.Invoke();
+    }
 }
