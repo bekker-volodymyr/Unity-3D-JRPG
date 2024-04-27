@@ -33,6 +33,12 @@ public class EnemyMoveToFightPositionState : EnemyState
         {
             enemy.transform.LookAt(GameManager.Instance.playerFightPosition.position);
 
+            if(!GameManager.Instance.isPlayerTurn)
+            {
+                GameManager.Instance.isPlayerTurn = true;
+                GameManager.Instance.PassTurn?.Invoke();
+            }
+
             //Vector3 direction = GameManager.Instance.playerFightPosition.position - enemy.transform.position;
             //
             //direction.Normalize();

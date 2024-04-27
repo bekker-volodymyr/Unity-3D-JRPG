@@ -20,6 +20,11 @@ public class GameManager : MonoBehaviour
 
     public Action FightInitiationEvent;
     public Action AttackEnded;
+    public Action EnemyAttack;
+    public Action EnemiesTurn;
+    public Action PassTurn;
+
+    public bool isPlayerTurn = true;
 
     private void Awake()
     {
@@ -50,4 +55,5 @@ public class GameManager : MonoBehaviour
         attackTarget = ghost;
         player.StateMachine.ChangeState(player.MoveToTargetState);
     }
+
 }

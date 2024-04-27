@@ -37,6 +37,7 @@ public class AttackState : PlayerState
 
     private void OnAttackEnded()
     {
+        GameManager.Instance.isPlayerTurn = false;
         stateMachine.ChangeState(player.MoveToFightPositionState);
     }
 }

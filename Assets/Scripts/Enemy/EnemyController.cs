@@ -10,6 +10,8 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] private GameObject fightArea;
 
+    private Animator animator;
+
     public NavMeshAgent agent;
     private Vector3 fightAreaAnchor;
     private Vector3 fightPosition;
@@ -34,11 +36,14 @@ public class EnemyController : MonoBehaviour
     public EnemyIdleState EnemyIdleState { get; set; }
     public EnemyMoveToFightPositionState EnemyMoveToFightPosState { get; set; }
     public EnemyWaitToAttackState EnemyWaitToAttackState { get; set; }
+    public EnemyAttackState EnemyAttackState { get; set; }
+    public EnemyTurnState  EnemyTurnState { get; set; }
     #endregion
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
 
         fightAreaAnchor = fightArea.transform.position;
         fightPosition = transform.position;
@@ -47,6 +52,8 @@ public class EnemyController : MonoBehaviour
         EnemyIdleState = new EnemyIdleState(EnemyStateMachine, this);
         EnemyMoveToFightPosState = new EnemyMoveToFightPositionState(EnemyStateMachine, this);
         EnemyWaitToAttackState = new EnemyWaitToAttackState(EnemyStateMachine, this);
+        EnemyAttackState = new EnemyAttackState(EnemyStateMachine, this);
+        EnemyTurnState = new EnemyTurnState(EnemyStateMachine, this);
 
         EnemyStateMachine.Init(EnemyIdleState);
     }
@@ -90,5 +97,15 @@ public class EnemyController : MonoBehaviour
     public void Death()
     {
         Destroy(gameObject);
+    }
+
+    public void SetAnimationState(int state)
+    {
+        animator.SetInteger("State", state);
+    }
+
+    public void OnAttackEnds()
+    {
+        EnemyStateMachine.ChangeState(EnemyMoveToFightPosState);
     }
 }

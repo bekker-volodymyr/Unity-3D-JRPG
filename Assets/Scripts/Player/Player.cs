@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     public WaitToAttackTargetState WaitToAttackTargetState { get; set; }
     public MoveToTargetState MoveToTargetState { get; set; }
     public AttackState AttackState { get; set; }
+    public WaitForHitState WaitForHitState { get; set; }
 
     #endregion
 
@@ -37,8 +38,11 @@ public class Player : MonoBehaviour
         WaitToAttackTargetState = new WaitToAttackTargetState(StateMachine, this);
         MoveToTargetState = new MoveToTargetState(StateMachine, this);
         AttackState = new AttackState(StateMachine, this);
+        WaitForHitState = new WaitForHitState(StateMachine, this);
 
         StateMachine.Init(IdleState);
+
+        GameManager.Instance.EnemyAttack += GetHit;
 
         Cursor.visible = false;
     }
@@ -63,6 +67,10 @@ public class Player : MonoBehaviour
         controller.Move(moveDir.normalized * speed * Time.deltaTime);
     }
 
+    private void GetHit()
+    {
+        SetAnimatorState(3);
+    }
 
     public void OnAttackAnimationEnd()
     {

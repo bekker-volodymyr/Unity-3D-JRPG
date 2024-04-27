@@ -50,7 +50,14 @@ public class MoveToFightPositionState : PlayerState
         if (fractionOfJourney >= 1f)
         {
             player.SetAnimatorState(0);
-            stateMachine.ChangeState(player.WaitToAttackTargetState);
+            if (GameManager.Instance.isPlayerTurn)
+            {
+                stateMachine.ChangeState(player.WaitToAttackTargetState);
+            }
+            else
+            {
+                stateMachine.ChangeState(player.WaitForHitState);
+            }
         }
         else
         {
