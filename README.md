@@ -1,6 +1,14 @@
 <h1> DEVLOGS | CHANGELOGS </h1>
 
 <h2>27.04.24</h2>
+
+<ul>
+  <li> створено локацію та оточення </li>
+</ul>
+
+![image](https://github.com/YurkevichVA/UnityFinal/assets/67063105/eb20291f-8014-4958-8349-5b06f1add5ba)
+
+
 <ul>
   <li> реалізований повний цикл бою </li>
 </ul>
