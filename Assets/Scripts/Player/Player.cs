@@ -14,18 +14,13 @@ public class Player : MonoBehaviour
     [SerializeField] private float turnSmoothTime = 0.1f;
 
     #region States Variables
-    private Enums.State currentState;
 
-    #endregion
-
-    #region Lerp Variables
-
-    // Init on lerp start
-    private float lerpStartTime;
-    private Vector3 lerpStartPos;
-    private float lerpLength;
-
-    private float lerpSpeed = 5.0f;
+    public PlayerStateMachine StateMachine { get; set; }
+    public IdleState IdleState { get; set; }
+    public MoveToFightPositionState MoveToFightPositionState { get; set; }
+    public WaitToAttackTargetState WaitToAttackTargetState { get; set; }
+    public MoveToTargetState MoveToTargetState { get; set; }
+    public AttackState AttackState { get; set; }
 
     #endregion
 
@@ -35,73 +30,42 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         cameraTransform = Camera.main.transform;
 
-        currentState = Enums.State.Idle;
+        StateMachine = new PlayerStateMachine();
+
+        IdleState = new IdleState(StateMachine, this);
+        MoveToFightPositionState = new MoveToFightPositionState(StateMachine, this);
+        WaitToAttackTargetState = new WaitToAttackTargetState(StateMachine, this);
+        MoveToTargetState = new MoveToTargetState(StateMachine, this);
+        AttackState = new AttackState(StateMachine, this);
+
+        StateMachine.Init(IdleState);
 
         Cursor.visible = false;
     }
 
     private void Update()
     {
-        switch (currentState)
-        {
-            case Enums.State.Idle:
-                IdleUpdate();
-                break;
-            case Enums.State.Fight:
-                FightUpdate(); 
-                break;
-            default: break;
-        }
+        StateMachine.CurrentState.FrameUpdate();
     }
 
-    public void ChangeState(Enums.State newState)
+    public void SetAnimatorState(int state)
     {
-        switch (newState)
-        {
-            case Enums.State.Idle: break;
-            case Enums.State.Fight:
-                lerpStartTime = Time.time;
-                lerpStartPos = transform.position;
-                lerpLength = Vector3.Distance(lerpStartPos, GameManager.Instance.playerFightPosition.position);
-                break;
-            default: break;
-        }
-        currentState = newState;
+        animator.SetInteger("State", state);
     }
 
-    private void IdleUpdate()
+    public void IdleMove(Vector3 direction)
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+        transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
-
-        if (direction.magnitude >= 0.1f)
-        {
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-            animator.SetInteger("State", 1);
-
-            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            controller.Move(moveDir.normalized * speed * Time.deltaTime);
-        }
+        Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+        controller.Move(moveDir.normalized * speed * Time.deltaTime);
     }
 
-    private void FightUpdate()
+
+    public void OnAttackAnimationEnd()
     {
-        float distCovered = (Time.time - lerpStartTime) * lerpSpeed;
-
-        float fractionOfJourney = distCovered / lerpLength;
-
-        if(fractionOfJourney >= 1f)
-        {
-            animator.SetInteger("State", 0);
-        }
-        else
-        {
-            transform.position = Vector3.Lerp(lerpStartPos, GameManager.Instance.playerFightPosition.position, fractionOfJourney);
-        }
+        GameManager.Instance.AttackEnded?.Invoke();
     }
 }

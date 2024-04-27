@@ -16,6 +16,10 @@ public class GameManager : MonoBehaviour
 
     public bool isPaused;
 
+    public GameObject attackTarget;
+
+    public Action AttackEnded;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -33,8 +37,15 @@ public class GameManager : MonoBehaviour
         primaryCamera.gameObject.SetActive(false);
         fightingCamera.gameObject.SetActive(true);
 
-        player.ChangeState(Enums.State.Fight);
+        // player.ChangeState(Enums.PlayerState.Fight);
+        player.StateMachine.ChangeState(player.MoveToFightPositionState);
 
         Cursor.visible = true;
+    }
+
+    public void Attack(GameObject ghost)
+    {
+        attackTarget = ghost;
+        player.StateMachine.ChangeState(player.MoveToTargetState);
     }
 }

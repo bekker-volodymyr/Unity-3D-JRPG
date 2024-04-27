@@ -8,4 +8,9 @@ public class Enums
     {
         Idle, Fight
     }
+
+    public enum PlayerState
+    {
+        Idle, Fight, Attack
+    }
 }

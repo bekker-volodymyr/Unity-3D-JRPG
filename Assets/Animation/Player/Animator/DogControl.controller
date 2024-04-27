@@ -25,6 +25,31 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 0
+--- !u!1101 &-8025330344898666388
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 6
+    m_ConditionEvent: State
+    m_EventTreshold: 2
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 1102597142297889830}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 3
+  m_TransitionDuration: 0.01
+  m_TransitionOffset: 0
+  m_ExitTime: 0.0066666645
+  m_HasExitTime: 0
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0
@@ -39,7 +64,7 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -65,6 +90,7 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1139946608561059468}
+  - {fileID: -8025330344898666388}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -328,16 +354,16 @@ AnimatorStateMachine:
     m_Position: {x: 216, y: -72, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102597142297889830}
-    m_Position: {x: 456, y: -72, z: 0}
+    m_Position: {x: 470, y: 0, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102841285716856984}
-    m_Position: {x: 456, y: 0, z: 0}
+    m_Position: {x: 460, y: 320, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102978981160464930}
-    m_Position: {x: 456, y: 72, z: 0}
+    m_Position: {x: 710, y: 150, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102494443745526630}
-    m_Position: {x: 456, y: 144, z: 0}
+    m_Position: {x: 710, y: 330, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102381193985536354}
     m_Position: {x: 708, y: -72, z: 0}

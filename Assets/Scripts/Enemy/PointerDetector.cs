@@ -27,6 +27,11 @@ public class PointerDetector : MonoBehaviour
             {
                 isHovered = true;
             }
+
+            if (Input.GetMouseButtonDown(0) && isHovered)
+            {
+                OnClick();
+            }
         }
     }
 
@@ -38,5 +43,23 @@ public class PointerDetector : MonoBehaviour
     void ToggleMarker()
     {
         marker.SetActive(isHovered); 
+    }
+
+    void OnClick()
+    {
+        // Implement your click logic here
+        Debug.Log("Object clicked: " + gameObject.name);
+        GameManager.Instance.AttackEnded += OnPlayerAttackEnded;
+        GameManager.Instance.Attack(gameObject);
+    }
+
+    private void OnPlayerAttackEnded()
+    {
+        Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.Instance.AttackEnded -= OnPlayerAttackEnded;
     }
 }
