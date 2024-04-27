@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject attackTarget;
 
+    public Action FightInitiationEvent;
     public Action AttackEnded;
 
     private void Awake()
@@ -37,8 +38,9 @@ public class GameManager : MonoBehaviour
         primaryCamera.gameObject.SetActive(false);
         fightingCamera.gameObject.SetActive(true);
 
-        // player.ChangeState(Enums.PlayerState.Fight);
         player.StateMachine.ChangeState(player.MoveToFightPositionState);
+
+        FightInitiationEvent?.Invoke();
 
         Cursor.visible = true;
     }

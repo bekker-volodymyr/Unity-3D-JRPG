@@ -19,10 +19,5 @@ public class FightTrigger : MonoBehaviour
     private void InitiateFight()
     {
         GameManager.Instance.InitiateFight(new Vector3(0f, 0f, 30f));
-
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            enemies[i].ChangeState(Enums.State.Fight);
-        }
     }
 }

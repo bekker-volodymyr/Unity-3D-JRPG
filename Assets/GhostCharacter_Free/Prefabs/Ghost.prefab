@@ -247,9 +247,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7760616430155980091, guid: d7b5f5851eb33f341a741415a6355033, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1313731623082252701}
-    - targetCorrespondingSourceObject: {fileID: 7760616430155980091, guid: d7b5f5851eb33f341a741415a6355033, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1350758200252490432}
   m_SourcePrefab: {fileID: 100100000, guid: d7b5f5851eb33f341a741415a6355033, type: 3}
 --- !u!1 &7437626473848232252 stripped
 GameObject:
@@ -268,8 +265,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33baadfdf7a7e994f8f0f377f86a4d4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  marker: {fileID: 8100411404828939666}
   fightArea: {fileID: 0}
   player: {fileID: 0}
+  agent: {fileID: 0}
 --- !u!195 &1313731623082252701
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -292,19 +291,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1350758200252490432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7437626473848232252}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3701c331911b482438cca802b133af7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  marker: {fileID: 8100411404828939666}
 --- !u!4 &7817142241837941638 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6987597785787893633, guid: d7b5f5851eb33f341a741415a6355033, type: 3}

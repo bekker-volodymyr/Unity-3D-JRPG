@@ -6,13 +6,13 @@ using UnityEngine.UIElements;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] private GameObject fightArea;
-    [SerializeField] private GameObject player; 
+    [SerializeField] private GameObject marker;
 
-    private NavMeshAgent agent;
+    [SerializeField] private GameObject fightArea;
+
+    public NavMeshAgent agent;
     private Vector3 fightAreaAnchor;
     private Vector3 fightPosition;
-    private Quaternion fightRotation;
 
     #region Slerp Variables
     
@@ -29,33 +29,37 @@ public class EnemyController : MonoBehaviour
 
     #endregion
 
-    private Enums.State currentState;
+    #region State Machine
+    public EnemyStateMachine EnemyStateMachine { get; set; }
+    public EnemyIdleState EnemyIdleState { get; set; }
+    public EnemyMoveToFightPositionState EnemyMoveToFightPosState { get; set; }
+    public EnemyWaitToAttackState EnemyWaitToAttackState { get; set; }
+    #endregion
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
 
-        player = GameObject.FindWithTag("Player");
-
         fightAreaAnchor = fightArea.transform.position;
         fightPosition = transform.position;
-        fightRotation = transform.rotation;
 
-        currentState = Enums.State.Idle;
+        EnemyStateMachine = new EnemyStateMachine();
+        EnemyIdleState = new EnemyIdleState(EnemyStateMachine, this);
+        EnemyMoveToFightPosState = new EnemyMoveToFightPositionState(EnemyStateMachine, this);
+        EnemyWaitToAttackState = new EnemyWaitToAttackState(EnemyStateMachine, this);
 
-        MoveToRandomPoint();
+        EnemyStateMachine.Init(EnemyIdleState);
     }
 
-    private void MoveToRandomPoint()
+    public void MoveToRandomPoint()
     {
         Vector3 point = GetRandomPointInArea();
         agent.SetDestination(point);
     }
-    private void MoveToFightPosition()
+    public void MoveToFightPosition()
     { 
         agent.SetDestination(fightPosition);
     }
-
     private Vector3 GetRandomPointInArea()
     {
         Vector3 randomDirection = Random.insideUnitSphere * 10f;
@@ -70,80 +74,21 @@ public class EnemyController : MonoBehaviour
 
     void Update()
     {
-        switch(currentState)
-        {
-            case Enums.State.Idle: IdleUpdate(); break;
-            case Enums.State.Fight: FightUpdate(); break;
-        }
+        EnemyStateMachine.CurrentState.FrameUpdate();
     }
 
     private void LateUpdate()
     {
-        switch (currentState)
-        {
-            case Enums.State.Idle: IdleLateUpdate(); break;
-            case Enums.State.Fight: FightLateUpdate(); break;
-        }
+        EnemyStateMachine.CurrentState.FrameLateUpdate();
     }
 
-    public void ChangeState(Enums.State newState)
+    public void ToggleMarker(bool isHovered)
     {
-        switch (newState)
-        {
-            case Enums.State.Idle: break;
-            case Enums.State.Fight:
-
-                MoveToFightPosition();
-
-
-                slerpStartTime = Time.time;
-                startRotation = transform.rotation;
-
-                directionToPlayer = GameManager.Instance.playerFightPosition.position - transform.position;
-                targetRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
-
-                slerpLength = Quaternion.Angle(startRotation, targetRotation);
-
-                break;
-            default: break;
-        }
-        currentState = newState;
+        marker.SetActive(isHovered);
     }
 
-    public void RotateTowardsPlayer()
+    public void Death()
     {
-        float distCovered = (Time.time - slerpStartTime) * rotationSpeed;
-
-        float fractionOfJourney = distCovered / slerpLength;
-
-        transform.rotation = Quaternion.Slerp(startRotation, targetRotation, fractionOfJourney);
-    }
-
-    private void IdleUpdate()
-    {
-        if (!agent.pathPending && agent.remainingDistance < 0.1f)
-        {
-            MoveToRandomPoint();
-        }
-    }
-
-    private void FightUpdate()
-    {
-        if (!agent.pathPending && agent.remainingDistance < 0.1f)
-        {
-            // RotateTowardsPlayer();
-            transform.LookAt(GameManager.Instance.playerFightPosition);
-        }
-    }
-
-
-    private void FightLateUpdate()
-    {
-        //RotateTowards();
-    }
-
-    private void IdleLateUpdate()
-    {
-        return;
+        Destroy(gameObject);
     }
 }
