@@ -1,7 +1,21 @@
+# Description
+
+In this course project, developed during a university Unity course, I created a small scene where the player can battle ghost enemies in a JRPG style.
+
+While working on this project, I mastered key Unity features, including:
+
+* controlling a character using CharacterController
+* using NavMesh for NPC navigation
+* applying Cinemachine for multi-camera setups
+* creating the game world using Terrain
+* implementing the State Machine pattern for managing animations and object behavior
+
+This project provided me with valuable experience in Unity development, making me an ideal candidate for the role of Junior Unity Developer.
+
 <details>
  <summary>DEVLOGS | CHANGELOGS</summary>
 
-### 27.04.24
+#### 27.04.24
 
 <ul>
   <li> створено локацію та оточення </li>
