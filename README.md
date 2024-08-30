@@ -1,7 +1,7 @@
 <details>
  <summary>DEVLOGS | CHANGELOGS</summary>
 
-<h2>27.04.24</h2>
+### 27.04.24
 
 <ul>
   <li> створено локацію та оточення </li>
@@ -9,15 +9,11 @@
 
 ![image](https://github.com/YurkevichVA/UnityFinal/assets/67063105/eb20291f-8014-4958-8349-5b06f1add5ba)
 
-
 <ul>
   <li> реалізований повний цикл бою </li>
 </ul>
 
-
 <img src="https://github.com/user-attachments/assets/b07fcaf9-0e9b-4fef-b15d-871a0d985d81">
-
-
 
 <ul>
   <li> видалені деякі зайві файли ассетів </li>
@@ -29,7 +25,7 @@ https://github.com/YurkevichVA/UnityFinal/assets/67063105/cb952ddf-cad1-4ccc-ae4
 
 <hr>
 
-<h2>11.04.24</h2>
+### 11.04.24
 <ul>
   <li> релазована підсвідка ворогів при наведенні миші </li>
 </ul>
@@ -38,7 +34,7 @@ https://github.com/YurkevichVA/UnityFinal/assets/67063105/16391af6-89d4-4265-af2
 
 <hr>
 
-<h2>21.03.24</h2>
+### 21.03.24
 <ul>
   <li> реалізовано компас з маркером квесту </li>
   <li> додані пакети ассетів: 
@@ -49,7 +45,9 @@ https://github.com/YurkevichVA/UnityFinal/assets/67063105/16391af6-89d4-4265-af2
 https://github.com/YurkevichVA/UnityFinal/assets/67063105/8b7bf991-300c-4408-8205-df280bced8cd
 
 <hr>
-<h2>15.03.24</h2>
+
+### 15.03.24
+
 <ul>
   <li> додано меню паузи, кнопка відкриття паузи та поле для квесту </li>
   <li> додані пакети ассетів: 
@@ -62,9 +60,6 @@ https://github.com/YurkevichVA/UnityFinal/assets/67063105/8b7bf991-300c-4408-820
 
 ![image](https://github.com/YurkevichVA/UnityFinal/assets/67063105/94fd854f-3d32-4ec0-97c4-7d3cfcabb491)
 
-<hr>
-
-<h2>15.03.24</h2>
 <ul>
   <li> реалізоване позиціонування гравця на початку бою </li>
   <li> реалізоване повертання ворогів на початку бою </li>
@@ -74,7 +69,8 @@ https://github.com/YurkevichVA/UnityFinal/assets/67063105/cd9c4cc0-ead0-45be-b4a
 
 <hr>
 
-<h2>14.03.24</h2>
+### 14.03.24
+
 <ul>
   <li> інтегроване керування камерою за допомогою пакета Cinemachine </li>
   <li> налаштований перехід камери на позицію в бою </li>
@@ -84,7 +80,8 @@ https://github.com/YurkevichVA/UnityFinal/assets/67063105/f10dcca3-a813-4895-853
 
 <hr>
 
-<h2>13.03.24</h2>
+### 13.03.24
+
 <ul>
   <li> прибрано зайві об'єкти зі сцени </li>
   <li> позиціонування ворогів на початку бою </li>
@@ -93,7 +90,8 @@ https://github.com/YurkevichVA/UnityFinal/assets/67063105/f10dcca3-a813-4895-853
 
 <hr>
 
-<h2>08.03.24</h2>
+### 08.03.24
+
 <ul>
   <li> сконструйовано базову сцену бою </li>
   <li> камері додано idle анімацію </li>
@@ -101,7 +99,8 @@ https://github.com/YurkevichVA/UnityFinal/assets/67063105/f10dcca3-a813-4895-853
 
 <hr>
 
-<h2>07.03.24</h2>
+### 07.03.24
+
 <ul>
   <li> покращені переходи між анімацєю idle та руху </li>
   <li> встановлені межі нахилу камери </li>
