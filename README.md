@@ -14,7 +14,8 @@
 </ul>
 
 
-https://github.com/YurkevichVA/UnityFinal/assets/67063105/c2db8d33-3e64-4e42-b3cc-eb6f5a7213a2
+<img src="https://github.com/user-attachments/assets/b07fcaf9-0e9b-4fef-b15d-871a0d985d81">
+
 
 
 <ul>
