@@ -1,4 +1,5 @@
-<h1> DEVLOGS | CHANGELOGS </h1>
+<details>
+ <summary>DEVLOGS | CHANGELOGS</summary>
 
 <h2>27.04.24</h2>
 
@@ -111,4 +112,4 @@ https://github.com/YurkevichVA/UnityFinal/assets/67063105/f10dcca3-a813-4895-853
 
 <hr>
 
-
+</details>
